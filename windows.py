@@ -1,5 +1,10 @@
 import _winreg
 
+def set_reg_values(reg_path, name_value_tuple):
+    for name, value in name_value_tuple:
+        set_reg(reg_path, name, value)
+
+
 def set_reg(reg_path, name, value):
     try:
         _winreg.CreateKey(_winreg.HKEY_CURRENT_USER, reg_path)
