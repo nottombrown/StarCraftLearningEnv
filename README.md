@@ -1,6 +1,5 @@
 # Launching a windows machine on ec2
 
-
 - Follow the directions here:
   - http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/EC2_GetStarted.html#ec2-launch-instance_linux
 - Make a [Microsoft Windows Server 2012 R2](https://aws.amazon.com/marketplace/pp/B00KQOWCAQ/ref=mkt_ste_windows_amis) box
@@ -70,13 +69,6 @@ pip install -r requirements.txt
 ```
 
 
-If you are running on a local VM, behind a NAT you might want to use ngrok for port forwarding
-```
-choco install ngrok.portable
-ngrok tcp 80
-```
-
-
 ## Debugging
 
 **Could not connect to remote server because of this error:**
@@ -87,16 +79,20 @@ ngrok tcp 80
 You may need to create a Microsoft Remote Desktop profile for this machine from scratch
 
 **Running a local VM with VMWareFusion**
-TODO
+
+
+If you are running on a local VM, behind a NAT you might want to use ngrok for port forwarding
+```
+choco install ngrok.portable
+ngrok tcp 80
+```
+
+
 
 # Usage
 
 Open `PowerShell`
 
 ```shell
-
- C:\Libraries\ProjectRome\ProjectRome\bin\RomeBot.exe
-
-
-
+ C:/Libraries/StarCraftLearningEnv/bin/SCLE.exe
  ```
