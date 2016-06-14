@@ -3,7 +3,17 @@ from subprocess import check_output
 import os
 
 from windows import set_reg_values
-CHAOS_LAUNCHER_DIR = r"C:\Libraries\bwapi-src\Release_Binary\Chaoslauncher"
+STARCRAFT_DIR = r"C:/Program Files (x86)/StarCraft"
+SCLE_DIR = "C:/Libraries/StarCraftLearningEnv"
+
+EXECUTABLE_COMMAND = " \
+{SCLE_DIR}/injectory.x86.exe \
+    --launch '{STARCRAFT_DIR}/StarCraft.exe' \
+    --inject '{STARCRAFT_DIR}/bwapi-data/BWAPI.dll' \
+    --inject '{SCLE_DIR}/injectables/wmode.dll' \
+".format(STARCRAFT_DIR=STARCRAFT_DIR, SCLE_DIR=SCLE_DIR)
+
+print(EXECUTABLE_COMMAND)
 
 class Worker(object):
 
@@ -27,15 +37,17 @@ class Worker(object):
                        ])
 
     def start(self):
-        pid = check_output(CHAOS_LAUNCHER_DIR + "/chaoslauncher.exe")
+        pid = check_output(EXECUTABLE_COMMAND)
+
         print pid
         with os.open("worker.pids", 'rw') as pid_file:
             pid_file.write("10000")
 
     def close(self):
         with os.open("worker.pids", 'rw') as pid_file:
-            pids = 
+            pids = pid_file.read()
 
 
 worker = Worker()
+worker.configure()
 worker.start()
