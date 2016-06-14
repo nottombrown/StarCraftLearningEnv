@@ -36,8 +36,7 @@ class Worker(object):
             --inject {SCLE_DIR}/injectables/wmode.dll \
             --kill-on-exit --wait-for-exit --rethrow"
 
-        return injectory_command.format(STARCRAFT_DIR=STARCRAFT_DIR, SCLE_DIR=SCLE_DIR).\
-            replace('/', '\\')  # Windows likes backslashes
+        return injectory_command.format(STARCRAFT_DIR=STARCRAFT_DIR, SCLE_DIR=SCLE_DIR)
 
     def start(self):
         command = self._executable_command()
@@ -56,12 +55,6 @@ class Worker(object):
 if __name__ == '__main__':
     logger.setLevel(logging.INFO)
 
-    # if not admin.isUserAdmin():
-    #     logger.info("User is not an admin, escalating")
-    #     admin.runAsAdmin()
-
-    # logger.info("User is Administrator")
-    #
     worker = Worker()
     worker.start()
 
