@@ -1,5 +1,7 @@
+import atexit
 import logging
 import os
+from time import sleep
 from win32api import ShellExecute
 
 import subprocess
@@ -8,9 +10,8 @@ import subprocess
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 
-STARCRAFT_DIR = r"C:/Program Files (x86)/StarCraft"
+STARCRAFT_DIR = "C:/StarCraft"
 SCLE_DIR = "C:/Libraries/StarCraftLearningEnv"
-
 
 
 class Worker(object):
@@ -19,14 +20,23 @@ class Worker(object):
     request or failure.
     """
 
-    def _executable_command(self):
+    def __init__(self):
+        self.proc = None
 
-        command = "{SCLE_DIR}/bin/injectory.x86.exe \
---launch '{STARCRAFT_DIR}/StarCraft.exe' \
---inject '{STARCRAFT_DIR}/bwapi-data/BWAPI.dll' \
---inject '{SCLE_DIR}/injectables/wmode.dll'"
+    @staticmethod
+    def _executable_command():
 
-        return command.format(STARCRAFT_DIR=STARCRAFT_DIR, SCLE_DIR=SCLE_DIR).\
+        if " " in STARCRAFT_DIR or " " in SCLE_DIR:
+            logger.error("Directories must not have a space in them for injectory.exe to work correctly.")
+
+        # Command flags here: https://github.com/blole/injectory/tree/651700018750c4f2003f1f048b090c4d521717a6
+        injectory_command = "{SCLE_DIR}/bin/injectory.x86.exe \
+            --launch {STARCRAFT_DIR}/StarCraft.exe \
+            --inject {STARCRAFT_DIR}/bwapi-data/BWAPI.dll \
+            --inject {SCLE_DIR}/injectables/wmode.dll \
+            --kill-on-exit --wait-for-exit --rethrow"
+
+        return injectory_command.format(STARCRAFT_DIR=STARCRAFT_DIR, SCLE_DIR=SCLE_DIR).\
             replace('/', '\\')  # Windows likes backslashes
 
     def start(self):
@@ -34,16 +44,14 @@ class Worker(object):
 
         logger.info("Starting worker with the following command: \n{}".format(command))
         # pid = ShellExecute(command)
-        pid = subprocess.check_output(command, shell=True,)
-
-        print pid
-        with os.open("worker.pids", 'rw') as pid_file:
-            pid_file.write("10000")
+        self.proc = subprocess.Popen(command)
+        print self.proc
 
     def close(self):
         logger.info("Closing worker")
-        with os.open("worker.pids", 'rw') as pid_file:
-            pids = pid_file.read()
+
+        self.proc.kill()
+        self.proc.wait()
 
 if __name__ == '__main__':
     logger.setLevel(logging.INFO)
@@ -56,16 +64,13 @@ if __name__ == '__main__':
     #
     worker = Worker()
     worker.start()
-    # #
-    # # atexit.register(lambda: worker.close())
-    #
 
+    # Close the worker on ending this process
+    def handle_exit():
+        worker.close()
 
+    atexit.register(handle_exit)
 
-    # command = r"C:\Libraries\StarCraftLearningEnv\bin\injectory.x86.exe --launch 'C:\Program Files (x86)\StarCraft\StarCraft.exe'"
-
-    command = r"C:\Libraries\StarCraftLearningEnv\bin\injectory.x86.exe --launch 'C:\Program Files (x86)\StarCraft\StarCraft.exe'"
-    subprocess.call(command, shell=True)
-
-    command2 = "C:/Program Files (x86)/StarCraft/injectory.x86.exe --launch 'C:/Program Files (x86)/StarCraft/StarCraft.exe'"
-    subprocess.call(command2)
+    # Keep this running
+    while(True):
+        sleep(1)
