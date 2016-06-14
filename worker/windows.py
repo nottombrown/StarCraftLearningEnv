@@ -1,6 +1,21 @@
 import _winreg
 
 def set_reg_values(reg_path, name_value_tuple):
+    """
+    Example Usage:
+
+            set_reg_values(r'Software\Chaoslauncher\Launcher',
+                       [
+                           ('GameVersion', 'Starcraft 1.16.1'),
+                           ('StartMinimized', '0'),
+                           ('MinimizeOnRun', '1'),
+                           ('RunScOnStartup', '1'),
+                           ('AutoUpdate', '0'),
+                           ('WarnNoAdmin', '0'),
+                           ('TESTING', '0')
+                       ])
+
+    """
     for name, value in name_value_tuple:
         set_reg(reg_path, name, value)
 
