@@ -32,7 +32,9 @@ If you aren't familiar with compiling with VisualStudio, we recommend that you f
 
 Make sure to install BWAPI to the `C:/Libraries/` directory and set your environment variables.
 
-Put the custom maps that we need into `C:\Program Files (x86)\StarCraft\Maps\openai`
+Move `C:\Program Files (x86)\StarCraft` to `C:\StarCraft`. Having spaces in directory names will break some of our libraries.
+
+Put the custom maps that we need into `C:\StarCraft\Maps\scle`
 
 Download the git repo (the best way is to use git on windows is using [Github's desktop app](https://desktop.github.com/))
 
@@ -68,6 +70,7 @@ virtualenv venv
 pip install -r requirements.txt
 ```
 
+Install py2exe (double click on the file in `C:\Libraries\StarCraftLearningEnv\bin`
 
 ## Debugging
 
@@ -94,5 +97,5 @@ ngrok tcp 80
 Open `PowerShell`
 
 ```shell
- C:/Libraries/StarCraftLearningEnv/bin/SCLE.exe
+ C:/Libraries/StarCraftLearningEnv/worker/worker.py
  ```

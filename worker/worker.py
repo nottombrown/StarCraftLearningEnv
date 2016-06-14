@@ -2,7 +2,9 @@ import logging
 import os
 from win32api import ShellExecute
 
-import admin
+import subprocess
+
+# import admin
 logging.basicConfig()
 logger = logging.getLogger(__name__)
 
@@ -29,8 +31,10 @@ class Worker(object):
 
     def start(self):
         command = self._executable_command()
+
         logger.info("Starting worker with the following command: \n{}".format(command))
-        pid = ShellExecute(command)
+        # pid = ShellExecute(command)
+        pid = subprocess.check_output(command, shell=True,)
 
         print pid
         with os.open("worker.pids", 'rw') as pid_file:
@@ -44,13 +48,24 @@ class Worker(object):
 if __name__ == '__main__':
     logger.setLevel(logging.INFO)
 
-    if not admin.isUserAdmin():
-        logger.info("User is not an admin, escalating")
-        admin.runAsAdmin()
+    # if not admin.isUserAdmin():
+    #     logger.info("User is not an admin, escalating")
+    #     admin.runAsAdmin()
 
-    logger.info("User is Administrator")
-
+    # logger.info("User is Administrator")
+    #
     worker = Worker()
     worker.start()
+    # #
+    # # atexit.register(lambda: worker.close())
     #
-    # atexit.register(lambda: worker.close())
+
+
+
+    # command = r"C:\Libraries\StarCraftLearningEnv\bin\injectory.x86.exe --launch 'C:\Program Files (x86)\StarCraft\StarCraft.exe'"
+
+    command = r"C:\Libraries\StarCraftLearningEnv\bin\injectory.x86.exe --launch 'C:\Program Files (x86)\StarCraft\StarCraft.exe'"
+    subprocess.call(command, shell=True)
+
+    command2 = "C:/Program Files (x86)/StarCraft/injectory.x86.exe --launch 'C:/Program Files (x86)/StarCraft/StarCraft.exe'"
+    subprocess.call(command2)
