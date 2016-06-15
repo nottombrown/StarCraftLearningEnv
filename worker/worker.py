@@ -1,6 +1,7 @@
 import atexit
 import logging
 import os
+from ConfigParser import RawConfigParser
 from time import sleep
 from win32api import ShellExecute
 
@@ -13,7 +14,6 @@ logger = logging.getLogger(__name__)
 STARCRAFT_DIR = "C:/StarCraft"
 SCLE_DIR = "C:/Libraries/StarCraftLearningEnv"
 
-
 class Worker(object):
     """
     Tiny python script responsible for starting up an injected StarCraft.exe and closing it upon
@@ -22,6 +22,21 @@ class Worker(object):
 
     def __init__(self):
         self.proc = None
+
+    def _bwapi_module(self):
+        location = 'C:\Libraries\StarCraftLearningEnv\scle\SCLEModule\Release\SCLEModule.dll'
+
+    def set_bwapi_config(self):
+        # BWAPI will always look at the following directory for configuration
+        destination = r"C:/Program\ Files(x86)/StarCraft/bwap-data/bwapi.ini"
+
+
+        config = RawConfigParser()
+        config.read("C:\Libraries\StarCraftLearningEnv\worker\base_bwapi.ini")
+
+        with open(destination, 'w') as configfile:
+            config.write(configfile)
+
 
     @staticmethod
     def _executable_command():
@@ -44,7 +59,9 @@ class Worker(object):
         logger.info("Starting worker with the following command: \n{}".format(command))
         # pid = ShellExecute(command)
         self.proc = subprocess.Popen(command)
-        print self.proc
+
+
+        self.set_bwapi_config()
 
     def close(self):
         logger.info("Closing worker")
