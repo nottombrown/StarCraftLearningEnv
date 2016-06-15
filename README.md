@@ -21,14 +21,8 @@ https://us.battle.net/account/management/download/?show=classic
 Patch BroodWar to version 1.16.1:
 https://us.battle.net/support/en/article/200684
 
-Download BWAPI and install it: <br>
+Download the BWAPI installer and use the exe to install it to `C:/Libraries/`: <br>
 https://github.com/bwapi/bwapi/releases (if the download fails, use the [mirror](https://drive.google.com/file/d/0B1Iz-CApPh9eQjhTT3FEcml2NlU/view))
-
-Prerequisites for Bot Compiling:
-  * [Visual Studio 2013](https://msdn.microsoft.com/en-us/library/dd831853(v=vs.120).aspx) - [Direct Download Link](https://go.microsoft.com/fwlink/?LinkId=532506&clcid=0x409)
-  * [BWAPI 4.1.2](https://github.com/bwapi/bwapi/releases/tag/v4.1.2)
-
-If you aren't familiar with compiling with VisualStudio, we recommend that you follow [Dave Churchill's screencast for installing ualbertabot](https://www.youtube.com/watch?v=lSmkDjFm3Tw&ab_channel=serendib7). This has the same dependencies that we do.
 
 Make sure to install BWAPI to the `C:/Libraries/` directory and set your environment variables.
 
@@ -56,9 +50,9 @@ You can customize ConsoleZ by following [these directions](https://www.maketeche
 * Set PowerShell as your default shell
 * Set `control+v` to paste
 
-Install Python2.7 and pip
+Install the requirements from choco
 ```bash
-choco install python2 pywin32
+choco install python2 wget unzip
 ```
 
 Install the dependencies for our python app
@@ -70,7 +64,30 @@ virtualenv venv
 pip install -r requirements.txt
 ```
 
-Install py2exe (double click on the file in `C:\Libraries\StarCraftLearningEnv\bin`
+Download and unzip BWAPI 4.1.2 (This takes a while)
+```bash
+wget https://github.com/bwapi/bwapi/archive/v4.1.2.zip
+unzip v4.1.2.zip
+```
+
+Set our environment variables
+```bash
+[Environment]::SetEnvironmentVariable("BWAPI_SRC", "C:\Libraries\bwapi-4.1.2\bwapi", "User")
+[Environment]::SetEnvironmentVariable("BWAPI_LIB", "C:\Libraries\StarCraftLearningEnv\bwapi_lib_4.1.2", "User")
+```
+
+Now if you reset your console, you can see these environment variables
+```bash
+Get-ChildItem Env:
+```
+
+## Compiling
+
+Prerequisites for compiling:
+  * [Visual Studio 2013](https://msdn.microsoft.com/en-us/library/dd831853(v=vs.120).aspx) - [Direct Download Link](https://go.microsoft.com/fwlink/?LinkId=532506&clcid=0x409)
+
+If you aren't familiar with compiling with VisualStudio, we recommend that you follow [Dave Churchill's screencast for installing ualbertabot](https://www.youtube.com/watch?v=lSmkDjFm3Tw&ab_channel=serendib7). This has the same dependencies that we do.
+
 
 ## Debugging
 

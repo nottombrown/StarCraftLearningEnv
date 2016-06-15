@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{14ce9a5d-a50f-4202-a58a-9ab97c9f5366}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{182f22f0-ab70-42d2-9955-63b9d6a41455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\vendor">
+      <UniqueIdentifier>{39f9a69e-0bad-4230-8ad2-16ce5cd4767a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\vendor">
+      <UniqueIdentifier>{b9cc2293-3512-41bc-ad7d-66bdedde964c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\vendor\base64.cpp">
+      <Filter>src\vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vendor\jsoncpp.cpp">
+      <Filter>src\vendor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CaptureScreen.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dll.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnvAPIServer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExampleAIModule.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\vendor\zmq.h">
+      <Filter>include\vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vendor\zmq_addon.hpp">
+      <Filter>include\vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vendor\base64.h">
+      <Filter>include\vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vendor\json.h">
+      <Filter>include\vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vendor\json-forwards.h">
+      <Filter>include\vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\vendor\zmq.hpp">
+      <Filter>include\vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CaptureScreen.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EnvAPIServer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ExampleAIModule.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
